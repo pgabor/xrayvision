@@ -34,10 +34,14 @@ class XRayVision:
         Numpy array in the following format: [t_min, t_max]
     energyRange : np.array
         Numpy array in the following format: [E_min, E_max]
-    totalFlux: float
+    totalFlux : float
         The total flux of the data
-    error: float
+    error : float
         Error on the visibility
+    header : dict
+        Header for MapFactory
+    data : np.array
+        Numpy array for the visibilities (complex)
     
     Examples
     ----------
@@ -66,3 +70,8 @@ class XRayVision:
         self.energyRange = np.array([0., 0.])
         self.totalFlux = 0.
         self.error = 0.
+        self.header = {'cdelt1': 10, 'cdelt2': 10, 'telescop':'sunpy'}
+        self.data = np.array([])
+    
+    def visibilityMap(self):
+         return sunpy.map.Map(self.data, self.header)
